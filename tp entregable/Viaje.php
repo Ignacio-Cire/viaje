@@ -1,37 +1,49 @@
 <?php
 /**La empresa de Transporte de Pasajeros “Viaje Feliz” quiere registrar la información referente a sus viajes. De cada viaje se precisa almacenar el código del mismo, destino, cantidad máxima de pasajeros y los pasajeros del viaje.
-
-
-
  */
 class Viaje
 {
     private $codigo;
     private $destino;
     private $cantMaxPas;
-    private $pasajeros;
+    private $pasajeros = [];
 
-    public function __construct($cod, $dest, $cantMax)
+    public function __construct($cod, $dest, $cantMax,  $pasajeros = [])
     {
         $this->codigo = $cod;
         $this->destino = $dest;
         $this->cantMaxPas = $cantMax;
-        $this->pasajeros = array();
+        $this->pasajeros = $pasajeros;
+
         
 
     }
     /**Realice la implementación de la clase Viaje e implemente los métodos necesarios para     modificar los atributos de dicha clase (incluso los datos de los pasajeros). Utilice clases y arreglos  para   almacenar la información correspondiente a los pasajeros. Cada pasajero guarda  su “nombre”, “apellido” y “numero de documento”. */
 
-    // ARREGLO ASOCIATIVO PARA OBTENER AL DATOS DEL PASAJERO.
+    // ARREGLO ASOCIATIVO PARA AGREGAR DATOS DEL PASAJERO.
     public function agregarPasajero($nombre, $apellido, $numeroDocumento)
-    {
-        $pasajero = array(
-            "Nombre" => $nombre,
-            "Apellido" => $apellido,
-            "Numero de documento" => $numeroDocumento
-        );
-        $this->pasajeros[] = $pasajero;
-    }
+{
+    $pasajero = array(
+        "Nombre" => $nombre,
+        "Apellido" => $apellido,
+        "Numero de documento" => $numeroDocumento
+    );
+    $this->pasajeros[] = $pasajero; 
+}
+
+
+    // METODO PARA ELIMINAR PASAJEROS
+   /**  public function eliminarPasajeroPorIndice($indice)
+   * {
+    *    // Verificar si el índice es válido y si existe un pasajero en esa posición
+     *   if (isset($this->pasajeros[$indice])) {
+       *     unset($this->pasajeros[$indice]); // Eliminar el pasajero del arreglo
+      *      return true; // Devolver true si se eliminó correctamente
+        *} else {
+         *   return false; // Devolver false si el índice no es válido o no hay pasajero en esa posición
+        *}
+    *}
+    */
    
     // METODOS GET
 
@@ -78,44 +90,24 @@ class Viaje
 
     // METODO TO STRING PARA MOSTRAR EN EL TEST
 
-    public function __toString()
-    {
-        $codigo = $this->getCodigo();
-        $destino = $this->getDestino();
-        $cantMax = $this->getCantMax();
+    // METODO TO STRING PARA MOSTRAR EN EL TEST
+    public function __toString(){
         $pasajeros = $this->getPasajeros();
-
-         // Cadena con información del viaje
-        $infoViaje = "Código: $codigo\n";
-        $infoViaje .= "Destino: $destino\n";
-        $infoViaje .= "Cantidad máxima de pasajeros: $cantMax\n\n";
-        $infoViaje .= "Pasajeros:\n";
-        
-        // Iterar sobre los pasajeros y agregar su información a la cadena
-    foreach ($pasajeros as $pasajero) {
-        //arrays asociativo 
-        $nombre = $pasajero['Nombre'];
-        $apellido = $pasajero['Apellido'];
-        $numeroDocumento = $pasajero['Numero de documento'];
-
-        $infoViaje .= "Nombre: $nombre\n";
-        $infoViaje .= "Apellido: $apellido\n";
-        $infoViaje .= "Documento: $numeroDocumento\n";
-        $infoViaje .= "-------------------------\n\n";
-
+        $respuesta = "Código del viaje: ".$this->getCodigo()."\n";
+        $respuesta .= "Destino: ".$this->getDestino()."\n";
+        $respuesta .= "Cantidad máxima de pasajeros: ".$this->getCantMax()."\n";
+        $respuesta .= "Pasajeros del viaje: ".count($pasajeros)."\n";
+        $respuesta .= "*************\n";
+        $respuesta .= "Datos de pasajeros: \n";
+    
+        foreach ($pasajeros as $pasajero) {
+            $respuesta .= "Nombre: ".$pasajero["Nombre"]."\n";
+            $respuesta .= "Apellido: ".$pasajero["Apellido"]."\n";
+            $respuesta .= "Numero de documento: ".$pasajero["Numero de documento"]."\n";
+            $respuesta .= "*************\n";
+        }
+    
+        return $respuesta;
     }
-
-    return $infoViaje;
+    
 }
-
-
-
-    }
-
-
-
-
-
-
-
-
